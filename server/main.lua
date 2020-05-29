@@ -90,7 +90,7 @@ AddEventHandler('esx_bag:TakeItem', function(id, item, count, type)
     MySQL.Async.fetchAll('SELECT * FROM owned_bags WHERE id = @id ',{["@id"] = id}, function(bag)
     MySQL.Async.fetchAll('SELECT * FROM owned_bag_inventory WHERE id = @id AND item = @item ',{["@id"] = id, ["@item"] = item}, function(result)
 
-    if result[1] ~= nil then
+    if result[1] ~= nil  and result[1].count >= count then
 
         if type == 'item' then
             xPlayer.addInventoryItem(item, count)
